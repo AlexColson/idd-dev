@@ -1,0 +1,9 @@
+[submodule "idd"]
+	path = idd
+	url = git@github.com:AlexColson/idd.git
+[submodule "idd-dsl"]
+	path = idd-dsl
+	url = git@github.com:AlexColson/idd-dsl.git
+[submodule "idd-fir"]
+	path = idd-fir
+	url = git@github.com:AlexColson/idd-fir.git
