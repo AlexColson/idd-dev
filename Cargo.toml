@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+
+# Uncomment each line as the corresponding submodule is initialized.
+# When publishing to crates.io, remove this file entirely — each repo
+# declares its own versioned dependencies and stands alone.
+members = [
+    # "idd-dsl/crates/*",
+    # "idd-fir/crates/*",
+    # "idd/crates/*",
+]
