@@ -4,3 +4,7 @@
 .direnv
 
 /.pre-commit-config.yaml
+.npm-packages
+node_modules
+package.json
+package-lock.json
