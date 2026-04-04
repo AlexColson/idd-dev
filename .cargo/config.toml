@@ -9,11 +9,11 @@
 # Remove this file (or specific entries) when publishing to crates.io.
 
 [patch.crates-io]
-# idd-dsl-core   = { path = "idd-dsl/crates/idd-dsl-core" }
-# idd-dsl-parser = { path = "idd-dsl/crates/idd-dsl-parser" }
-# idd-macros     = { path = "idd-dsl/crates/idd-macros" }
-# idd-fir-core   = { path = "idd-fir/crates/idd-fir-core" }
-# idd-fir-fs     = { path = "idd-fir/crates/idd-fir-fs" }
-# idd-fir-cli    = { path = "idd-fir/crates/idd-fir-cli" }
-# idd-core       = { path = "idd/crates/idd-core" }
+idd-dsl-core   = { path = "idd-dsl/crates/idd-dsl-core" }
+idd-dsl-parser = { path = "idd-dsl/crates/idd-dsl-parser" }
+idd-macros     = { path = "idd-dsl/crates/idd-macros" }
+idd-core       = { path = "idd/crates/idd-core" }
+idd-fir-core   = { path = "idd-fir/crates/idd-fir-core" }
+idd-fir-fs     = { path = "idd-fir/crates/idd-fir-fs" }
 # idd-cli        = { path = "idd/crates/idd-cli" }
+# idd-fir-cli    = { path = "idd-fir/crates/idd-fir-cli" }

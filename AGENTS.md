@@ -82,6 +82,46 @@ Any binary named `idd-<name>` on `$PATH` is automatically a subcommand (cargo-pl
 - **Each repo structure**: `Cargo.toml` (workspace root) → `crates/` (individual publishable crates) → `docs/` (design docs, migrate to `.fir/` later)
 - **Dogfooding**: `idd-fir` tracks its own features in its own `.fir/`; `idd check` runs in CI for every repo
 
+## DEVELOPMENT STANDARDS
+
+### Design Principles
+
+- **SOLID** — Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion. Every module, trait, and function should be evaluable against these.
+- **DRY** — Code duplication is forbidden. Extract shared logic into reusable abstractions. If the same logic appears twice, it's a bug waiting to happen.
+- **Testable** — Every feature ships with tests. Pure logic is separated from I/O. Side effects are pushed to boundaries and abstracted behind traits for mocking.
+- **Composable** — Functions and types compose naturally. Prefer small, focused interfaces over monolithic ones. Each crate should be independently usable.
+- **Clear dependencies** — Dependency arrows are explicit and documented. No circular dependencies. Depend on abstractions, not concretions.
+
+### Rust Error Handling
+
+- **Libraries** use `thiserror` — define explicit error enums with context, never leak implementation details through error types.
+- **Binaries** use `anyhow` — flexible error context at the application boundary, convert library errors via `?`.
+- **No `unwrap()` or `panic!()` in library code** — all fallible operations return `Result`. `unwrap()` is only acceptable in tests with clear invariants.
+- **Error types are part of the public API** — changing an error variant is a breaking change. Design error enums with extensibility in mind.
+- **Use `thiserror::Error` derive** — `#[error("...")]` for display, `#[from]` for transparent conversion, `#[source]` for error chains.
+
+### Rust Testing
+
+- **Unit tests** live in `#[cfg(test)]` modules alongside the code they test.
+- **Integration tests** live in `tests/` at the crate root, testing public API surfaces.
+- **Test coverage** — every public function has at least one test. Error paths are tested, not just happy paths.
+- **Property-based testing** — use `proptest` or `quickcheck` for functions with well-defined invariants (parsers, serializers, validators).
+- **Tests are deterministic** — no flaky tests. Mock external I/O. Use temp directories for file operations.
+
+### Rust Linking & Dependency Management
+
+- **Crate `Cargo.toml` declares version deps** — `idd-dsl-core = "0.1"`, never `path = "..."`.
+- **Root `.cargo/config.toml` patches version deps to local paths** — this is the only place `[patch.crates-io]` lives.
+- **When publishing**: remove patches, crates resolve from crates.io. No structural changes needed.
+- **Feature flags** — use `#[cfg(feature = "...")]` for optional functionality. Default features should be minimal.
+
+### Code Quality Gate
+
+- **`cargo clippy -- -D warnings`** must pass — clippy warnings are treated as errors.
+- **`cargo fmt`** — all code is formatted before commit (enforced by pre-commit hook).
+- **No `#[allow(...)]` without comment** — every suppression must have a `// reason:` explaining why.
+- **Feature completion gate** — every feature must pass `cargo build` and `cargo test` before being considered done. No exceptions.
+
 ## ANTI-PATTERNS (THIS PROJECT)
 
 - **NEVER** edit `.pre-commit-config.yaml` directly — modify `nix/modules/pre-commit.nix`

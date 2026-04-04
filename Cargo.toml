@@ -5,7 +5,7 @@ resolver = "2"
 # When publishing to crates.io, remove this file entirely — each repo
 # declares its own versioned dependencies and stands alone.
 members = [
-    # "idd-dsl/crates/*",
-    # "idd-fir/crates/*",
-    # "idd/crates/*",
+    "idd-dsl/crates/*",
+    "idd/crates/*",
+    "idd-fir/crates/*",
 ]
