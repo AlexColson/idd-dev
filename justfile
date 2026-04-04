@@ -28,3 +28,13 @@ local-install:
     cp target/release/idd ~/.local/bin/
     cp target/release/idd-fir ~/.local/bin/
     @echo "Installed idd and idd-fir to ~/.local/bin/"
+
+# Push main repo and all submodules in lockstep
+pushall:
+    git push --recurse-submodules=on-demand
+
+# Show git status for main repo and all submodules
+statusall:
+    @echo "=== idd-dev (root) ==="
+    @git status --short
+    @git submodule foreach --quiet 'echo "" && echo "=== $name ===" && git status --short'
