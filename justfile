@@ -41,19 +41,25 @@ statusall:
 
 # Structural quality analysis — SOLID, IOSP, coupling, DRY, SRP
 quality:
-    rustqual idd-fir/crates/ idd/crates/ idd-dsl/crates/ --no-fail
+    rustqual idd-fir/crates/ --no-fail
+    rustqual idd/crates/ --no-fail
+    rustqual idd-dsl/crates/ --no-fail
 
 # Structural quality — fail CI if below threshold
 quality-gate:
-    rustqual idd-fir/crates/ idd/crates/ idd-dsl/crates/ --min-quality-score 80
+    rustqual idd-fir/crates/ --min-quality-score 80
+    rustqual idd/crates/ --min-quality-score 80
+    rustqual idd-dsl/crates/ --min-quality-score 80
 
 # Code health score — cognitive complexity, duplication, Halstead, maintainability
 health:
-    kimun score idd-fir/ idd/ idd-dsl/
+    km score idd-fir/
+    km score idd/
+    km score idd-dsl/
 
 # Coupling analysis — module balance, circular deps, god modules
 coupling:
-    cargo coupling --summary idd-fir/crates/ idd/crates/ idd-dsl/crates/
+    cargo coupling --summary
 
 # Full quality pipeline — all three tools
 quality-all: quality health coupling
