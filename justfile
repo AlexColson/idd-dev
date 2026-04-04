@@ -20,3 +20,11 @@ clippy:
 # Run pre-commit hooks on all files, including autoformatting
 pre-commit-all:
     pre-commit run --all-files
+
+# Build idd and idd-fir binaries in release mode and install to ~/.local/bin
+local-install:
+    cargo build --release -p idd-cli -p idd-fir-cli
+    mkdir -p ~/.local/bin
+    cp target/release/idd ~/.local/bin/
+    cp target/release/idd-fir ~/.local/bin/
+    @echo "Installed idd and idd-fir to ~/.local/bin/"
