@@ -941,7 +941,10 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "idd-fir-core",
+ "proptest",
  "serde",
+ "serde_json",
+ "tempfile",
  "toml",
 ]
 

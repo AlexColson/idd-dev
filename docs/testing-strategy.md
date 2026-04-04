@@ -43,6 +43,14 @@ This document outlines the testing strategy for the IDD (Intent-Driven Developme
 - ✅ ID allocation (sequential, unique, format validation)
 - ✅ Status state machine (monotonic, terminal states)
 - ✅ Serialization roundtrips (JSON, TOML)
+- ✅ File backend atomic writes and read-after-write consistency
+
+**Test Invariants:**
+- **Atomic writes**: Temp+rename pattern preserves data integrity
+- **Roundtrip consistency**: Read after write returns same data
+- **Search correctness**: Results are subset of registry, case-insensitive
+- **ID allocation**: Sequential incrementing, unique per kind
+- **Multiple operations**: State persists correctly across mutations
 
 ### 2. Integration Tests
 
@@ -61,18 +69,45 @@ This document outlines the testing strategy for the IDD (Intent-Driven Developme
 
 **Library:** `proptest`
 
+**Philosophy:** Test invariants, not just lines of code. Property-based testing automatically generates thousands of test cases to verify that our code behaves correctly under all possible inputs.
+
 **Use Cases:**
 - Parsers (malformed input rejection)
 - ID generators (uniqueness, sequential)
 - State machines (invariants)
 - Roundtrip conversions
 - Constraint validation
+- Search correctness (query results are subset of registry)
+- File operations (atomic writes, consistency)
+
+**Test Patterns:**
+```rust
+proptest! {
+    #[test]
+    fn test_invariant_property(
+        input in arb_input(),  // Random generation
+    ) {
+        // Test that invariant always holds
+        let result = process(input);
+        assert!(result.is_valid());
+    }
+}
+```
 
 **Implemented:**
-- ✅ Status state machine (8 variants)
-- ✅ ID generation (1000+ iterations)
-- ✅ JSON parsing (malformed, unknown variants)
-- ✅ Serialization roundtrips
+- ✅ Status state machine (8 variants, monotonic transitions)
+- ✅ ID generation (1000+ iterations, sequential, unique)
+- ✅ JSON parsing (malformed, unknown variants, edge cases)
+- ✅ Serialization roundtrips (title, description, body, status preserved)
+- ✅ File backend atomic writes (temp+rename preserves data)
+- ✅ Search invariants (results are subset of registry, case-insensitive)
+- ✅ Query builder filters (combined filters compose correctly)
+
+**Why PBT > Manual Examples:**
+- **Coverage**: 1000+ test cases vs. 5-10 hand-written examples
+- **Edge cases**: PBT finds edge cases we didn't think of
+- **Confidence**: Statistical guarantee of correctness
+- **Maintainability**: One property test replaces dozens of unit tests
 
 ### 4. Fuzz Testing
 
@@ -188,19 +223,22 @@ mod tests {
 
 ## Priority Queue
 
-### Critical (Blockers)
-1. **File backend tests** - 0% coverage, critical for I/O
-2. **CLI integration tests** - 22% coverage, user-facing
+### ✅ Completed
+- ✅ File backend tests (atomic writes, search invariants, consistency) - 13 unit tests + 3 proptest suites
+- ✅ Query builder tests (status, tag, stale/recent, depends_on, blocks, constraints) - 13 tests
+- ✅ Graph traversal tests (simple deps, max depth, no deps, cycles) - 4 tests
 
 ### High Priority
-1. **Memory backend tests** - In-memory implementation
-2. **Frontmatter parser tests** - File I/O core
-3. **Integrity checker tests** - Constraint validation
+1. **CLI commands tests** - promote, link, list, show, update (1737 lines, 5.7%)
+2. **DSL utility tests** - enforcement, import, scope, severity (~74 lines, 0%)
+3. **Integrity checker tests** - constraint validation, duplicate detection
+4. **Memory backend tests** - alternative to file backend
 
 ### Medium Priority
-1. **DSL parser tests** - Grammar validation
-2. **Macro expansion tests** - Proc-macro correctness
-3. **Coverage tooling** - Branch coverage measurement
+1. **DSL parser tests** - grammar validation, malformed input
+2. **Macro expansion tests** - proc-macro correctness
+3. **Coverage tooling** - branch coverage measurement
+4. **Frontmatter parser tests** - edge cases
 
 ### Low Priority
 1. **E2E workflow tests** - Full CLI workflows
@@ -217,6 +255,15 @@ mod tests {
 | `rustqual` | Code quality analysis | ⚠️ Needs setup |
 | `cargo clippy` | Linting | ✅ Active |
 | `cargo fmt` | Formatting | ✅ Active |
+
+## Test Distribution
+
+| Test Type | Count | Coverage |
+|-----------|-------|----------|
+| Unit tests | ~43 | ✅ Query, graph, ID, status |
+| Property-based tests | ~15 | ✅ Invariants, roundtrips |
+| Integration tests | ~43 | ✅ CLI commands |
+| File backend tests | 13 unit + 3 proptest | ✅ Atomic writes, search |
 
 ## Test Driven Development (TDD) Workflow
 
