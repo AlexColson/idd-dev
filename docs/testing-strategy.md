@@ -327,3 +327,42 @@ test:
 - **E2E**: End-to-End testing
 - **Panic**: Unrecoverable error in Rust
 - **Invariant**: Property that must always hold true
+
+## File Backend Testing Status
+
+### Current Coverage
+- **File operations**: 0% (no tests yet)
+- **Search**: 0% (no tests yet)  
+- **ID allocation**: 0% (no tests yet)
+
+### Test Plan
+
+**Unit Tests Needed:**
+1. Atomic write pattern (temp+rename) preserves data
+2. Read-after-write consistency
+3. Search returns matching results (case-insensitive)
+4. Search results are subset of registry
+5. Multiple operations don't corrupt state
+6. Load all populates registry correctly
+7. Empty registry loads without error
+
+**Property Tests (proptest):**
+1. Search invariants with 100+ features
+2. Atomic write roundtrip with random features
+3. Search results consistency across queries
+
+**Implementation Notes:**
+- Feature struct is complex - use partial initialization with defaults
+- Use tempfile for test isolation
+- Test invariants rather than exact behavior
+
+### Completed Work
+- ✅ Added proptest and tempfile to dev-dependencies
+- ✅ Updated testing strategy documentation
+- ✅ Documented file_backend test invariants
+
+### Next Steps
+1. Add comprehensive unit tests for file_backend
+2. Add property-based tests for search invariants
+3. Verify atomic write pattern with multiple save/load cycles
+4. Test edge cases: missing directories, permission errors, large files
