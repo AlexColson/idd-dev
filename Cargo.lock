@@ -348,6 +348,8 @@ dependencies = [
  "idd-dsl-core",
  "idd-fir-core",
  "idd-fir-fs",
+ "proptest",
+ "serde_json",
 ]
 
 [[package]]
