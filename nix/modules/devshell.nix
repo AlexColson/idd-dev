@@ -11,6 +11,8 @@
         nixd # Nix language server
         bacon
         rustup
+        pkg-config
+        openssl.dev
       ];
 
       # Code quality tools — require Rust 1.85+ (edition2024), not yet in nixpkgs

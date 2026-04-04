@@ -51,6 +51,28 @@ quality-gate:
     rustqual idd/crates/ --min-quality-score 80
     rustqual idd-dsl/crates/ --min-quality-score 80
 
+# Install cargo-tarpaulin if not present
+install-coverage:
+    @echo "Installing cargo-tarpaulin..."
+    cargo install cargo-tarpaulin --version 0.32.8
+
+# Generate coverage reports for workspace
+coverage:
+    @echo "=== Generating coverage reports ==="
+    cargo tarpaulin --out Html --output-directory target/coverage
+    cargo tarpaulin --out Lcov --output-directory target/coverage
+    cargo tarpaulin --out Text --output-directory target/coverage
+    @echo ""
+    @echo "Coverage reports available at: target/coverage/index.html"
+    @echo "LCOV report: target/coverage/coverage.lcov"
+    @echo "Text report: target/coverage/coverage.txt"
+
+# Coverage for specific crate
+coverage-crate:
+    cargo tarpaulin --crate idd-fir-core --out Html --output-directory target/coverage-fir-core
+    cargo tarpaulin --crate idd-fir-cli --out Html --output-directory target/coverage-cli
+    cargo tarpaulin --crate idd-dsl-core --out Html --output-directory target/coverage-dsl
+
 # Code health score — cognitive complexity, duplication, Halstead, maintainability
 health:
     km score idd-fir/

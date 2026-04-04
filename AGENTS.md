@@ -139,7 +139,54 @@ just build               # cargo build --workspace
 just test                # cargo test --workspace
 just check               # cargo check --workspace (fast, no codegen)
 just clippy              # cargo clippy --workspace --all-targets -- -D warnings
+just coverage            # Install cargo-tarpaulin and generate coverage reports
+just coverage-crate      # Generate per-crate coverage reports
+just quality             # Run rustqual (IOSP, complexity, DRY, SRP)
+just quality-gate        # Quality gate with 80% minimum score
+just health              # Run km (cognitive complexity, duplication, Halstead, maintainability)
+just coupling            # Run cargo-coupling analysis
+just quality-all         # Full quality pipeline: rustqual + km + coupling
 just pre-commit-all      # pre-commit run --all-files
+```
+
+## QUALITY CHECKS
+
+### Automated Quality Tools
+
+| Tool | Command | Purpose |
+|------|---------|---------|
+| **rustqual** | `just quality` | IOSP, complexity, DRY, SRP, coupling, test quality analysis |
+| **km (Kimün)** | `just health` | Cognitive complexity, duplication, Halstead, maintainability indices |
+| **cargo-coupling** | `just coupling` | Module balance, circular dependencies, god module detection |
+| **cargo-tarpaulin** | `just coverage` | Line/branch coverage reports (HTML, LCOV, text) |
+
+### Quality Thresholds
+
+- **rustqual**: Minimum 80% quality score (enforced by `just quality-gate`)
+- **clippy**: All warnings treated as errors (`-D warnings`)
+- **Test quality**: TQ-001/TQ-002: 0 warnings, TQ-003: <30% untested functions
+
+### Test Strategy
+
+1. **Unit tests** in `#[cfg(test)]` modules alongside code
+2. **Property-based testing** with `proptest` for invariants
+3. **Integration tests** in `tests/` directories for public API
+4. **Coverage goal**: >80% line coverage, >70% branch coverage
+
+### Quality Pipeline
+
+```bash
+# Quick checks
+just check    # Type-check only
+just clippy   # Lint check
+
+# Full pipeline
+just quality-all  # rustqual + km + coupling
+
+# Coverage
+just install-coverage  # Install cargo-tarpaulin
+just coverage          # Generate all coverage reports
+just coverage-crate    # Per-crate coverage
 ```
 
 ## NOTES
