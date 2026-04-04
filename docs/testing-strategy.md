@@ -366,3 +366,42 @@ test:
 2. Add property-based tests for search invariants
 3. Verify atomic write pattern with multiple save/load cycles
 4. Test edge cases: missing directories, permission errors, large files
+
+## DSL Utility Testing Status
+
+### Completed ✅
+- **enforcement.rs**: 7 tests (100% coverage)
+  - Profile creation and active checking
+  - All variants testing
+  - Serialization/deserialization roundtrips
+  - Unknown variant rejection
+
+- **scope.rs**: 4 tests
+  - Ordering verification
+  - All 7 variants testing
+  - Serialization/deserialization
+
+- **severity.rs**: 3 tests
+  - Equality checking
+  - Serialization/deserialization
+
+- **import.rs**: 6 tests
+  - Binding and declaration creation
+  - Serialization roundtrips
+  - Missing field validation
+  - Empty bindings handling
+
+### Coverage Impact
+- **DSL Utilities**: ~74 lines → **~90%+ coverage**
+- **Total Coverage**: 34.73% → **34.89%** (433/1241 lines)
+
+### Test Invariants
+- Serialization preserves all fields
+- Deserialization rejects unknown variants
+- Missing required fields cause errors
+- Empty collections are valid
+
+### Next Targets
+1. idd-fir-cli/main.rs - 1842 lines, ~22% covered
+2. idd-cli/main.rs - 202 lines, 0%
+3. File backend tests - 249 lines, 0%
