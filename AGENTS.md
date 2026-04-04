@@ -73,6 +73,26 @@ Any binary named `idd-<name>` on `$PATH` is automatically a subcommand (cargo-pl
 | IDD philosophy | `idd/docs/intent-driven-development.md` | Constraint DSL spec, declaration taxonomy, enforcement points |
 | Manifesto | `idd/docs/software-development-3.0-manifesto.md` | Design-by-constraint philosophy, drift problem |
 
+## DEEP INTERVIEW WORKFLOW
+
+When scope is ambiguous or requirements are vague, use `$deep-interview` before implementation:
+
+```
+$deep-interview "clarify the auth change"
+  → Socratic interview runs (one question at a time)
+  → Feature created via `idd fir new` (status: exploring/scoping/designing)
+  → Confirmation gate — implementation blocked until feature confirmed
+  → User confirms → implementation proceeds, feature status updated via `idd fir`
+```
+
+Interview output flows directly into the **Feature Intent Registry** (`.fir/`) via `idd fir` commands — not raw file writes. The same logic will later be available via MCP through `idd serve`, so the workflow is identical regardless of interface.
+
+If `.fir/` doesn't exist AND `idd fir` is not installed, falls back to `.sisyphus/specs/<date>-<slug>.md`.
+
+**Trigger phrases:** "interview me", "don't assume", "gather requirements", "clarify the scope", "let's think through this first"
+
+**Rule:** No implementation until the user explicitly confirms the feature. If requirements change mid-implementation, update the FIR feature via `idd fir update` — don't silently diverge.
+
 ## CONVENTIONS
 
 - **Submodule lifecycle**: Skeleton first → populate → publish to crates.io → remove from this workspace
