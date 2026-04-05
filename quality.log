@@ -1,0 +1,478 @@
+rustqual idd-fir/crates/ --no-fail
+
+── idd-fir-cli/src/main.rs 
+  ✗ VIOLATION   main (line 271) [HIGH]
+    Logic: if (line 273), if (line 277)
+    Calls: Cli::parse (line 285), cmd_new (line 288), cmd_list (line 289), cmd_show (line 290), cmd_promote (line 291), cmd_status (line 292), cmd_defer (line 293), cmd_abandon (line 294), cmd_link (line 295), cmd_decide (line 296), cmd_graph (line 297), cmd_context (line 298), cmd_check (line 299), load_backend (line 301), cmd_update (line 302), cmd_search (line 306), cmd_note (line 310), cmd_archive (line 314), cmd_archive_list (line 318)
+    Effort: 32.5
+    Complexity: logic=2, calls=23, nesting=1, cognitive=3, cyclomatic=7
+  ✗ VIOLATION   cmd_new (line 355) [HIGH]
+    Logic: match (line 368)
+    Calls: load_backend (line 356), .alloc_feature_id() (line 370), new_feature (line 371), .alloc_story_id() (line 378), new_story (line 379), .alloc_decision_id() (line 386), new_decision (line 387), .load_config() (line 395), .save_config() (line 400)
+    Effort: 16.5
+    Complexity: logic=1, calls=9, nesting=1, cognitive=1, cyclomatic=3
+  ✗ VIOLATION   cmd_list (line 487) [HIGH]
+    Logic: if (line 493), if (line 502), if (line 506), if (line 510), if (line 514), if (line 518), if (line 522), if (line 529), if (line 533), for (line 538), if (line 542)
+    Calls: load_backend (line 488), .status() (line 499), .tag() (line 503), .story() (line 507), .blocks() (line 511), .constraint() (line 515), .depends_on() (line 519), .recent_days() (line 524), .resolve() (line 527), join_display (line 539), .is_archived() (line 542)
+    Effort: 31.5
+    Complexity: logic=11, calls=11, nesting=2, cognitive=12, cyclomatic=12
+    ⚠ cyclomatic complexity 12 exceeds threshold
+    ⚠ function length 68 lines exceeds threshold
+  ✗ VIOLATION   cmd_show (line 556) [HIGH]
+    Logic: if (line 560), if (line 563), if (line 573), boolean_op (line 573), if (line 577), if (line 580), if (line 586), if (line 589), if (line 595)
+    Calls: load_backend (line 557), print_if_nonempty (line 567), join_display (line 567), print_related (line 578)
+    Effort: 23.0
+    Complexity: logic=9, calls=20, nesting=4, cognitive=19, cyclomatic=10
+    ⚠ cognitive complexity 19 exceeds threshold
+  ✗ VIOLATION   print_related (line 620) [HIGH]
+    Logic: for (line 622), if (line 623), for (line 630), if (line 631), if (line 638), if (line 639)
+    Calls: .feature() (line 623), .story() (line 639)
+    Effort: 13.0
+    Complexity: logic=6, calls=3, nesting=2, cognitive=9, cyclomatic=7
+  ✗ VIOLATION   cmd_link (line 728) [MEDIUM]
+    Logic: if (line 741)
+    Calls: load_registry (line 729), load_feature_mut (line 730), dedup_push (line 732)
+    Effort: 7.5
+    Complexity: logic=1, calls=6, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   get_graph_features (line 785) [MEDIUM]
+    Logic: if (line 786), if (line 792)
+    Calls: .transitive_dependencies_depth() (line 789), .features_by_story() (line 794), .active_features() (line 796)
+    Effort: 10.5
+    Complexity: logic=2, calls=3, nesting=2, cognitive=3, cyclomatic=3
+  ✗ VIOLATION   print_feature (line 800) [MEDIUM]
+    Logic: if (line 804), if (line 807)
+    Calls: join_display (line 801)
+    Effort: 5.5
+    Complexity: logic=2, calls=2, nesting=1, cognitive=2, cyclomatic=3
+  ✗ VIOLATION   format_feature_line (line 857) [MEDIUM]
+    Logic: if (line 862), if (line 865)
+    Calls: join_display (line 858)
+    Effort: 5.5
+    Complexity: logic=2, calls=2, nesting=1, cognitive=2, cyclomatic=3
+  ✗ VIOLATION   print_active_features (line 871) [MEDIUM]
+    Logic: for (line 873)
+    Calls: print_if_nonempty (line 875), join_display (line 875)
+    Effort: 6.0
+    Complexity: logic=1, calls=2, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   print_wishes (line 879) [MEDIUM]
+    Logic: if (line 881), for (line 883)
+    Calls: .features_by_status() (line 880)
+    Effort: 7.5
+    Complexity: logic=2, calls=1, nesting=2, cognitive=3, cyclomatic=3
+  ✗ VIOLATION   cmd_context (line 892) [HIGH]
+    Logic: if (line 896), if (line 900), if (line 902), if (line 907)
+    Calls: load_registry (line 893), .active_features() (line 894), filter_by_scope (line 897), .feature() (line 902), filter_by_feature (line 903), print_active_features (line 912), print_wishes (line 913)
+    Effort: 18.5
+    Complexity: logic=4, calls=7, nesting=2, cognitive=5, cyclomatic=5
+  ✗ VIOLATION   cmd_check (line 918) [MEDIUM]
+    Logic: if (line 925), for (line 930), match (line 931), if (line 938)
+    Calls: load_backend (line 919)
+    Effort: 9.5
+    Complexity: logic=4, calls=1, nesting=2, cognitive=5, cyclomatic=4
+  ✗ VIOLATION   update_basic_fields (line 948) [HIGH]
+    Logic: if (line 949), if (line 952), if (line 955), if (line 957), if (line 960), if (line 963), if (line 964)
+    Calls: parse_status (line 953), dedup_push (line 958)
+    Effort: 14.0
+    Complexity: logic=7, calls=2, nesting=2, cognitive=9, cyclomatic=8
+  ✗ VIOLATION   cmd_note (line 1059) [MEDIUM]
+    Logic: if (line 1063)
+    Calls: load_feature_mut (line 1061), add_note_to_body (line 1070)
+    Effort: 6.0
+    Complexity: logic=1, calls=2, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   cmd_archive_list (line 1088) [MEDIUM]
+    Logic: if (line 1093), if (line 1098), for (line 1101)
+    Calls: .list_archived() (line 1090), print_archive_tree (line 1099)
+    Effort: 10.0
+    Complexity: logic=3, calls=2, nesting=2, cognitive=4, cyclomatic=4
+
+── idd-fir-core/src/integrity.rs 
+  ✗ VIOLATION   IntegrityChecker::check_referential (line 36) [HIGH]
+    Logic: for (line 37), for (line 38), if (line 39), for (line 47), if (line 48), if (line 56), if (line 57), for (line 65), if (line 66)
+    Calls: .feature() (line 39), .story() (line 57), .decision() (line 66)
+    Effort: 19.5
+    Complexity: logic=9, calls=4, nesting=3, cognitive=21, cyclomatic=10
+    ⚠ cognitive complexity 21 exceeds threshold
+  ✗ VIOLATION   IntegrityChecker::check_cycles (line 77) [MEDIUM]
+    Logic: for (line 78), if (line 80)
+    Calls: Self::has_cycle (line 80)
+    Effort: 7.5
+    Complexity: logic=2, calls=1, nesting=2, cognitive=3, cyclomatic=3
+  ✗ VIOLATION   IntegrityChecker::has_cycle (line 90) [MEDIUM]
+    Logic: if (line 95), for (line 101), if (line 102)
+    Calls: .feature() (line 98), Self::has_cycle (line 102)
+    Effort: 10.0
+    Complexity: logic=3, calls=2, nesting=2, cognitive=4, cyclomatic=4
+
+── idd-fir-core/src/model.rs 
+  ✗ VIOLATION   Registry::_collect_deps (line 334) [HIGH]
+    Logic: if (line 342), boolean_op (line 342), comparison (line 342), if (line 349), arithmetic (line 351)
+    Calls: .feature() (line 345), ._collect_deps() (line 351)
+    Effort: 12.0
+    Complexity: logic=5, calls=3, nesting=2, cognitive=4, cyclomatic=5
+
+── idd-fir-fs/src/file_backend.rs 
+  ✗ VIOLATION   write_md (line 22) [LOW]
+    Logic: if (line 23)
+    Calls: render_frontmatter (line 27)
+    Effort: 4.5
+    Complexity: logic=1, calls=1, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   FileBackend::save_config (line 92) [LOW]
+    Logic: if (line 94)
+    Calls: .fir_path() (line 93)
+    Effort: 4.5
+    Complexity: logic=1, calls=1, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   FileBackend::archive_feature (line 114) [HIGH]
+    Logic: if (line 116), if (line 121), if (line 136), if (line 143), boolean_op (line 143)
+    Calls: .feature_path() (line 115), .is_terminal() (line 121), BackendError::InvalidOperation (line 122), .fir_path() (line 130), Self::is_git_repo (line 140), Self::is_git_tracked (line 141), Self::git_mv (line 144)
+    Effort: 17.5
+    Complexity: logic=5, calls=7, nesting=1, cognitive=4, cyclomatic=6
+  ✗ VIOLATION   FileBackend::git_mv (line 167) [LOW]
+    Logic: if (line 176)
+    Calls: .status() (line 173)
+    Effort: 4.5
+    Complexity: logic=1, calls=1, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   FileBackend::load_archived_features (line 182) [MEDIUM]
+    Logic: if (line 185)
+    Calls: .fir_path() (line 184), Self::walk_md_dir (line 188)
+    Effort: 6.0
+    Complexity: logic=1, calls=2, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   FileBackend::list_archived (line 198) [MEDIUM]
+    Logic: if (line 201)
+    Calls: .fir_path() (line 200), Self::walk_md_dir (line 204)
+    Effort: 6.0
+    Complexity: logic=1, calls=2, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   FileBackend::find_archived_path (line 227) [MEDIUM]
+    Logic: if (line 229)
+    Calls: .fir_path() (line 228), Self::walk_md_dir (line 234)
+    Effort: 6.0
+    Complexity: logic=1, calls=2, nesting=1, cognitive=2, cyclomatic=3
+  ✗ VIOLATION   FileBackend::walk_md_dir (line 243) [MEDIUM]
+    Logic: for (line 247), if (line 250), if (line 252), comparison (line 252)
+    Calls: Self::walk_md_dir (line 251)
+    Effort: 11.5
+    Complexity: logic=4, calls=1, nesting=3, cognitive=6, cyclomatic=4
+  ✗ VIOLATION   FileBackend::scan_max_id (line 259) [LOW]
+    Logic: if (line 261)
+    Calls: Self::walk_md_dir (line 264)
+    Effort: 10.5
+    Complexity: logic=1, calls=1, nesting=4, cognitive=11, cyclomatic=6
+  ✗ VIOLATION   FileBackend::load_all (line 299) [HIGH]
+    Logic: if (line 314), for (line 315), if (line 318), comparison (line 318), if (line 328), for (line 329), if (line 332), comparison (line 332), if (line 342), for (line 343), if (line 346), comparison (line 346), for (line 358), if (line 359), arithmetic (line 369), arithmetic (line 370), arithmetic (line 371)
+    Calls: .load_config() (line 300), .fir_path() (line 313), read_md (line 319), .load_archived_features() (line 355), Self::max_feature_number (line 365), Self::max_story_number (line 366), Self::max_decision_number (line 367), .save_config() (line 377)
+    Effort: 35.0
+    Complexity: logic=17, calls=15, nesting=3, cognitive=22, cyclomatic=12
+    ⚠ cognitive complexity 22 exceeds threshold
+    ⚠ cyclomatic complexity 12 exceeds threshold
+    ⚠ function length 82 lines exceeds threshold
+  ✗ VIOLATION   FileBackend::save_feature (line 389) [MEDIUM]
+    Logic: if (line 391)
+    Calls: .ensure_dirs() (line 390), .find_archived_path() (line 392), .feature_path() (line 395), write_md (line 397)
+    Effort: 9.0
+    Complexity: logic=1, calls=4, nesting=1, cognitive=1, cyclomatic=2
+
+═══ Summary ═══
+  Functions: 206    Quality Score: 88.7%
+
+  IOSP:         78.9%  (93I, 23O, 59T, 31 violations)
+  Complexity:   90.8%  (4 complexity, 11 magic numbers, 4 long fn)
+  DRY:          90.8%  (1 fragments, 7 dead code, 11 boilerplate)
+  SRP:          96.6%  (2 struct, 3 module)
+  Coupling:    100.0%
+  Test Quality: 79.1%  (43 untested)
+
+119 quality findings. Run with --verbose for details.
+
+═══ Coupling ═══
+  Modules analyzed: 3
+
+  Incoming = modules depending on this one
+  Outgoing = modules this one depends on
+  Instability = Outgoing / (Incoming + Outgoing)
+
+                          In  Out  Instability
+    idd-fir-cli            0    0  0.00
+    idd-fir-core           0    0  0.00
+    idd-fir-fs             0    0  0.00
+
+  ✓ No circular dependencies.
+
+═══ DRY / Dead Code ═══
+  ⚠ Fragment 1: 3 matching statements
+    - cmd_defer (idd-fir-cli/src/main.rs:686-689)
+    - cmd_abandon (idd-fir-cli/src/main.rs:706-709)
+  ⚠ FeatureStatus::is_active [uncalled] (idd-fir-core/src/model.rs:90) — never called; consider removing
+  ⚠ Registry::feature_mut [uncalled] (idd-fir-core/src/model.rs:254) — never called; consider removing
+  ⚠ Registry::features_by_tag [uncalled] (idd-fir-core/src/model.rs:298) — never called; consider removing
+  ⚠ Registry::features_blocking [uncalled] (idd-fir-core/src/model.rs:312) — never called; consider removing
+  ⚠ InMemoryBackend::with_registry [test-only] (idd-fir-core/src/memory.rs:14) — only called from test code; consider moving to test module
+  ⚠ Registry::transitive_dependencies [test-only] (idd-fir-core/src/model.rs:319) — only called from test code; consider moving to test module
+  ⚠ Query::stale_days [test-only] (idd-fir-core/src/query.rs:247) — only called from test code; consider moving to test module
+  ⚠ [BP-002] FeatureId (idd-fir-core/src/model.rs:16) — Trivial Display implementation with a single write! call
+    → Consider using derive_more::Display
+  ⚠ [BP-002] StoryId (idd-fir-core/src/model.rs:31) — Trivial Display implementation with a single write! call
+    → Consider using derive_more::Display
+  ⚠ [BP-002] DecisionId (idd-fir-core/src/model.rs:46) — Trivial Display implementation with a single write! call
+    → Consider using derive_more::Display
+  ⚠ [BP-004] Query (idd-fir-core/src/query.rs:196) — 8 builder-style methods with repetitive set-and-return pattern
+    → Consider using typed_builder or derive_builder
+  ⚠ [BP-008] (anonymous) (idd-fir-cli/src/main.rs:446) — Struct construction with 4 .clone() calls — consider Into/From or ownership transfer
+    → Consider implementing From/Into or restructuring to avoid cloning
+  ⚠ [BP-009] SearchResult (idd-fir-core/src/memory.rs:94) — 3 constructions of `SearchResult` with overlapping fields
+    → Use struct update syntax: `Type { changed, ..base }`
+  ⚠ [BP-009] IntegrityFinding (idd-fir-core/src/integrity.rs:36) — 4 constructions of `IntegrityFinding` with overlapping fields
+    → Use struct update syntax: `Type { changed, ..base }`
+  ⚠ [BP-009] SearchResult (idd-fir-fs/src/file_backend.rs:434) — 3 constructions of `SearchResult` with overlapping fields
+    → Use struct update syntax: `Type { changed, ..base }`
+  ⚠ [BP-010] (anonymous) (idd-fir-fs/src/file_backend.rs:71) — Format string "{}.md" repeated 5 times
+    → Extract repeated format string into a helper function or constant
+  ⚠ [BP-010] (anonymous) (idd-fir-cli/src/main.rs:562) — Format string "Status: {}" repeated 3 times
+    → Extract repeated format string into a helper function or constant
+  ⚠ [BP-010] (anonymous) (idd-fir-cli/src/main.rs:574) — Format string "\n{}" repeated 3 times
+    → Extract repeated format string into a helper function or constant
+
+═══ SRP Analysis ═══
+  ⚠ Registry (idd-fir-core/src/model.rs:236) — LCOM4=4, fields=6, methods=16, fan-out=18, score=0.84
+    Cluster 1: methods=[new, feature, feature_mut, story, decision, alloc_feature_id, alloc_story_id, alloc_decision_id, active_features, features_by_status, features_by_tag, features_by_story, features_blocking], fields=[next_decision_id, next_feature_id, decisions, stories, features, next_story_id]
+    Cluster 2: methods=[transitive_dependencies], fields=[]
+    Cluster 3: methods=[transitive_dependencies_depth], fields=[]
+    Cluster 4: methods=[_collect_deps], fields=[]
+  ⚠ FileBackend (idd-fir-fs/src/file_backend.rs:47) — LCOM4=10, fields=3, methods=13, fan-out=46, score=0.76
+    Cluster 1: methods=[new, fir_path, archive_feature, is_archived], fields=[archived_feature_ids, base_path]
+    Cluster 2: methods=[save_config], fields=[]
+    Cluster 3: methods=[load_config], fields=[]
+    Cluster 4: methods=[find_archived_path], fields=[]
+    Cluster 5: methods=[feature_path], fields=[]
+    Cluster 6: methods=[decision_path], fields=[]
+    Cluster 7: methods=[story_path], fields=[]
+    Cluster 8: methods=[ensure_dirs], fields=[]
+    Cluster 9: methods=[list_archived], fields=[]
+    Cluster 10: methods=[load_archived_features], fields=[]
+  ⚠ idd-fir-core/src/model.rs — 352 production lines (score=0.10)
+  ⚠ idd-fir-fs/src/file_backend.rs — 417 production lines (score=0.23)
+  ⚠ idd-fir-fs/src/file_backend.rs — 1 independent function clusters
+    Cluster 1: [write_md]
+  ⚠ idd-fir-cli/src/main.rs — 984 production lines (score=1.00)
+  ⚠ idd-fir-cli/src/main.rs — 2 independent function clusters
+    Cluster 1: [add_note_to_body, cmd_abandon, cmd_check, cmd_context, cmd_decide, cmd_defer, cmd_graph, cmd_link, cmd_list, cmd_new, cmd_note, cmd_promote, cmd_search, cmd_status, cmd_update, filter_by_feature, main, print_feature, update_basic_fields]
+    Cluster 2: [format_feature_line]
+
+═══ Test Quality ═══
+  ⚠ next (idd-fir-core/src/model.rs:70) — TQ-003  Untested
+  ⚠ alloc_feature_id (idd-fir-core/src/model.rs:266) — TQ-003  Untested
+  ⚠ alloc_story_id (idd-fir-core/src/model.rs:272) — TQ-003  Untested
+  ⚠ alloc_decision_id (idd-fir-core/src/model.rs:278) — TQ-003  Untested
+  ⚠ active_features (idd-fir-core/src/model.rs:284) — TQ-003  Untested
+  ⚠ features_by_status (idd-fir-core/src/model.rs:291) — TQ-003  Untested
+  ⚠ features_by_story (idd-fir-core/src/model.rs:305) — TQ-003  Untested
+  ⚠ default_next_feature (idd-fir-core/src/model.rs:389) — TQ-003  Untested
+  ⚠ default_next_story (idd-fir-core/src/model.rs:392) — TQ-003  Untested
+  ⚠ default_next_decision (idd-fir-core/src/model.rs:395) — TQ-003  Untested
+  ⚠ default_context_budget (idd-fir-core/src/model.rs:417) — TQ-003  Untested
+  ⚠ default_true (idd-fir-core/src/model.rs:948) — TQ-003  Untested
+  ⚠ blocks (idd-fir-core/src/query.rs:229) — TQ-003  Untested
+  ⚠ story_path (idd-fir-fs/src/file_backend.rs:74) — TQ-003  Untested
+  ⚠ decision_path (idd-fir-fs/src/file_backend.rs:78) — TQ-003  Untested
+  ⚠ is_archived (idd-fir-fs/src/file_backend.rs:223) — TQ-003  Untested
+  ⚠ load_backend (idd-fir-cli/src/main.rs:323) — TQ-003  Untested
+  ⚠ load_registry (idd-fir-cli/src/main.rs:328) — TQ-003  Untested
+  ⚠ cmd_new (idd-fir-cli/src/main.rs:355) — TQ-003  Untested
+  ⚠ new_feature (idd-fir-cli/src/main.rs:406) — TQ-003  Untested
+  ⚠ new_story (idd-fir-cli/src/main.rs:446) — TQ-003  Untested
+  ⚠ new_decision (idd-fir-cli/src/main.rs:465) — TQ-003  Untested
+  ⚠ cmd_list (idd-fir-cli/src/main.rs:487) — TQ-003  Untested
+  ⚠ cmd_show (idd-fir-cli/src/main.rs:556) — TQ-003  Untested
+  ⚠ print_if_nonempty (idd-fir-cli/src/main.rs:605) — TQ-003  Untested
+  ⚠ join_display (idd-fir-cli/src/main.rs:611) — TQ-003  Untested
+  ⚠ print_related (idd-fir-cli/src/main.rs:620) — TQ-003  Untested
+  ⚠ cmd_promote (idd-fir-cli/src/main.rs:645) — TQ-003  Untested
+  ⚠ cmd_status (idd-fir-cli/src/main.rs:670) — TQ-003  Untested
+  ⚠ cmd_defer (idd-fir-cli/src/main.rs:685) — TQ-003  Untested
+  ⚠ cmd_abandon (idd-fir-cli/src/main.rs:705) — TQ-003  Untested
+  ⚠ cmd_link (idd-fir-cli/src/main.rs:728) — TQ-003  Untested
+  ⚠ cmd_decide (idd-fir-cli/src/main.rs:758) — TQ-003  Untested
+  ⚠ get_graph_features (idd-fir-cli/src/main.rs:785) — TQ-003  Untested
+  ⚠ print_feature (idd-fir-cli/src/main.rs:800) — TQ-003  Untested
+  ⚠ cmd_graph (idd-fir-cli/src/main.rs:812) — TQ-003  Untested
+  ⚠ filter_by_scope (idd-fir-cli/src/main.rs:824) — TQ-003  Untested
+  ⚠ filter_by_feature (idd-fir-cli/src/main.rs:835) — TQ-003  Untested
+  ⚠ format_feature_line (idd-fir-cli/src/main.rs:857) — TQ-003  Untested
+  ⚠ print_active_features (idd-fir-cli/src/main.rs:871) — TQ-003  Untested
+  ⚠ print_wishes (idd-fir-cli/src/main.rs:879) — TQ-003  Untested
+  ⚠ cmd_context (idd-fir-cli/src/main.rs:892) — TQ-003  Untested
+  ⚠ cmd_check (idd-fir-cli/src/main.rs:918) — TQ-003  Untested
+
+═══ Structural Checks ═══
+  ⚠ SLM  is_terminal (idd-fir-core/src/model.rs:83) — self never referenced
+  ⚠ SLM  is_active (idd-fir-core/src/model.rs:90) — self never referenced
+rustqual idd/crates/ --no-fail
+
+── idd-cli/src/main.rs 
+  ✗ VIOLATION   main (line 25) [HIGH]
+    Logic: if (line 28), comparison (line 28), if (line 35), boolean_op (line 35), comparison (line 35), comparison (line 35), if (line 39), boolean_op (line 39), comparison (line 39), comparison (line 39), if (line 43), comparison (line 43), if (line 52), if (line 53), if (line 54), if (line 68)
+    Calls: print_help (line 29), find_plugin (line 49), get_plugin_metadata (line 52), version_satisfies (line 54)
+    Effort: 28.0
+    Complexity: logic=16, calls=5, nesting=3, cognitive=11, cyclomatic=11
+    ⚠ cyclomatic complexity 11 exceeds threshold
+  ✗ VIOLATION   find_plugin (line 75) [MEDIUM]
+    Logic: for (line 79), if (line 81), boolean_op (line 81)
+    Calls: is_executable (line 81)
+    Effort: 8.5
+    Complexity: logic=3, calls=1, nesting=2, cognitive=3, cyclomatic=4
+  ✗ VIOLATION   print_help (line 102) [MEDIUM]
+    Logic: if (line 110), for (line 113)
+    Calls: discover_plugins (line 109)
+    Effort: 7.5
+    Complexity: logic=2, calls=1, nesting=2, cognitive=3, cyclomatic=3
+  ✗ VIOLATION   discover_plugins (line 122) [HIGH]
+    Logic: for (line 126), for (line 131), if (line 134), if (line 135)
+    Calls: is_executable (line 135), get_plugin_description (line 136)
+    Effort: 15.0
+    Complexity: logic=4, calls=2, nesting=4, cognitive=12, cyclomatic=5
+  ✗ VIOLATION   get_plugin_description (line 157) [HIGH]
+    Logic: if (line 159), if (line 160), if (line 161), if (line 168), if (line 171), for (line 183), if (line 185), boolean_op (line 185), boolean_op (line 185)
+    Calls: get_plugin_metadata (line 159)
+    Effort: 16.5
+    Complexity: logic=9, calls=1, nesting=3, cognitive=13, cyclomatic=10
+
+── idd-cli/src/serve/mod.rs 
+  ✗ VIOLATION   IddServe::try_discover_plugin (line 71) [MEDIUM]
+    Logic: if (line 75)
+    Calls: is_executable (line 75), get_plugin_description (line 78), Self::parse_subcommands (line 79)
+    Effort: 7.5
+    Complexity: logic=1, calls=3, nesting=1, cognitive=1, cyclomatic=2
+  ✗ VIOLATION   IddServe::parse_subcommands (line 90) [MEDIUM]
+    Logic: match (line 91), if (line 98)
+    Calls: Self::run_help (line 91), Self::extract_subcommands (line 96)
+    Effort: 7.0
+    Complexity: logic=2, calls=2, nesting=1, cognitive=2, cyclomatic=2
+  ✗ VIOLATION   IddServe::call_tool (line 242) [MEDIUM]
+    Logic: if (line 250), comparison (line 250)
+    Calls: .execute_plugin() (line 266)
+    Effort: 5.5
+    Complexity: logic=2, calls=1, nesting=1, cognitive=1, cyclomatic=2
+
+═══ Summary ═══
+  Functions: 60    Quality Score: 91.7%
+
+  IOSP:         81.0%  (28I, 6O, 18T, 8 violations)
+  Complexity:   85.0%  (2 complexity, 6 magic numbers, 1 error handling)
+  DRY:         100.0%
+  SRP:         100.0%
+  Coupling:    100.0%
+  Test Quality: 95.0%  (3 untested)
+
+  ~ All allows:   1 (qual:allow + #[allow])
+
+20 quality findings. Run with --verbose for details.
+
+═══ Coupling ═══
+  Modules analyzed: 2
+
+  Incoming = modules depending on this one
+  Outgoing = modules this one depends on
+  Instability = Outgoing / (Incoming + Outgoing)
+
+                          In  Out  Instability
+    idd-cli                0    0  0.00
+    idd-core               0    0  0.00
+
+  ✓ No circular dependencies.
+
+═══ Test Quality ═══
+  ⚠ print_help (idd-cli/src/main.rs:102) — TQ-003  Untested
+  ⚠ discover_plugins (idd-cli/src/main.rs:122) — TQ-003  Untested
+  ⚠ serve (idd-cli/src/serve/mod.rs:272) — TQ-003  Untested
+rustqual idd-dsl/crates/ --no-fail
+
+── idd-dsl-parser/src/parser.rs 
+  ✗ VIOLATION   check_duplicate_ids (line 207) [MEDIUM]
+    Logic: for (line 211), for (line 212), if (line 215)
+    Calls: ParseError::DuplicateId (line 216)
+    Effort: 10.5
+    Complexity: logic=3, calls=1, nesting=3, cognitive=6, cyclomatic=4
+
+── idd-macros/src/lib.rs 
+  ✗ VIOLATION   intent (line 132) [MEDIUM]
+    Logic: if (line 142)
+    Calls: IntentArgs::from_list (line 136), .to_declaration() (line 142)
+    Effort: 6.0
+    Complexity: logic=1, calls=2, nesting=1, cognitive=3, cyclomatic=2
+
+═══ Summary ═══
+  Functions: 98    Quality Score: 93.2%
+
+  IOSP:         93.5%  (17I, 12O, 67T, 2 violations)
+  Complexity:  100.0%
+  DRY:          88.8%  (6 dead code, 2 boilerplate, 3 wildcards)
+  SRP:         100.0%
+  Coupling:    100.0%
+  Test Quality: 65.3%  (29 no SUT, 5 untested)
+
+  ~ All allows:   4 (qual:allow + #[allow])
+
+47 quality findings. Run with --verbose for details.
+
+═══ Coupling ═══
+  Modules analyzed: 3
+
+  Incoming = modules depending on this one
+  Outgoing = modules this one depends on
+  Instability = Outgoing / (Incoming + Outgoing)
+
+                          In  Out  Instability
+    idd-dsl-core           0    0  0.00
+    idd-dsl-parser         0    0  0.00
+    idd-macros             0    0  0.00
+
+  ✓ No circular dependencies.
+
+═══ DRY / Dead Code ═══
+  ⚠ intent [uncalled] (idd-macros/src/lib.rs:132) — never called; consider removing
+  ⚠ DeclarationBuilder::tag [uncalled] (idd-dsl-core/src/declaration.rs:117) — never called; consider removing
+  ⚠ DeclarationBuilder::overrides [uncalled] (idd-dsl-core/src/declaration.rs:122) — never called; consider removing
+  ⚠ DeclarationBuilder::feature_ref [uncalled] (idd-dsl-core/src/declaration.rs:134) — never called; consider removing
+  ⚠ check_duplicate_ids [test-only] (idd-dsl-parser/src/parser.rs:207) — only called from test code; consider moving to test module
+  ⚠ EnforcementProfile::is_point_active [test-only] (idd-dsl-core/src/enforcement.rs:25) — only called from test code; consider moving to test module
+  ⚠ [BP-002] DeclarationId (idd-dsl-core/src/declaration.rs:16) — Trivial Display implementation with a single write! call
+    → Consider using derive_more::Display
+  ⚠ [BP-004] DeclarationBuilder (idd-dsl-core/src/declaration.rs:72) — 10 builder-style methods with repetitive set-and-return pattern
+    → Consider using typed_builder or derive_builder
+  ⚠ Wildcard import: super::* (idd-macros/tests/intent_macro_tests.rs:7)
+  ⚠ Wildcard import: super::* (idd-macros/tests/intent_macro_tests.rs:184)
+  ⚠ Wildcard import: super::* (idd-macros/tests/intent_macro_tests.rs:248)
+
+═══ Test Quality ═══
+  ⚠ valid_intent_parses (idd-macros/tests/intent_macro_tests.rs:11) — TQ-002  No SUT call
+  ⚠ all_intent_kinds_parse (idd-macros/tests/intent_macro_tests.rs:21) — TQ-002  No SUT call
+  ⚠ all_intent_scopes_parse (idd-macros/tests/intent_macro_tests.rs:45) — TQ-002  No SUT call
+  ⚠ all_intent_severities_parse (idd-macros/tests/intent_macro_tests.rs:67) — TQ-002  No SUT call
+  ⚠ default_values_set_correctly (idd-macros/tests/intent_macro_tests.rs:81) — TQ-002  No SUT call
+  ⚠ optional_fields_can_be_omitted (idd-macros/tests/intent_macro_tests.rs:91) — TQ-002  No SUT call
+  ⚠ complex_intent_with_all_fields (idd-macros/tests/intent_macro_tests.rs:113) — TQ-002  No SUT call
+  ⚠ statement_and_rationale_validation (idd-macros/tests/intent_macro_tests.rs:134) — TQ-002  No SUT call
+  ⚠ macro_preserves_function (idd-macros/tests/intent_macro_tests.rs:150) — TQ-002  No SUT call
+  ⚠ attribute_with_nested_brackets (idd-macros/tests/intent_macro_tests.rs:162) — TQ-002  No SUT call
+  ⚠ multiple_attributes_on_function (idd-macros/tests/intent_macro_tests.rs:172) — TQ-002  No SUT call
+  ⚠ empty_id_is_allowed (idd-macros/tests/intent_macro_tests.rs:188) — TQ-002  No SUT call
+  ⚠ empty_statement_is_allowed (idd-macros/tests/intent_macro_tests.rs:198) — TQ-002  No SUT call
+  ⚠ invalid_severity_is_allowed (idd-macros/tests/intent_macro_tests.rs:208) — TQ-002  No SUT call
+  ⚠ invalid_scope_is_allowed (idd-macros/tests/intent_macro_tests.rs:218) — TQ-002  No SUT call
+  ⚠ missing_kind_is_allowed (idd-macros/tests/intent_macro_tests.rs:228) — TQ-002  No SUT call
+  ⚠ missing_statement_is_allowed (idd-macros/tests/intent_macro_tests.rs:238) — TQ-002  No SUT call
+  ⚠ complete_intent_declaration_compiles (idd-macros/tests/intent_macro_tests.rs:252) — TQ-002  No SUT call
+  ⚠ attribute_with_overrides (idd-macros/tests/intent_macro_tests.rs:272) — TQ-002  No SUT call
+  ⚠ attribute_with_feature_ref (idd-macros/tests/intent_macro_tests.rs:283) — TQ-002  No SUT call
+  ⚠ invalid_kind_produces_error (idd-macros/tests/intent_macro_tests.rs:294) — TQ-002  No SUT call
+  ⚠ test_deserialization (idd-dsl-core/src/import.rs:73) — TQ-002  No SUT call
+  ⚠ test_deserialization_missing_required_field (idd-dsl-core/src/import.rs:96) — TQ-002  No SUT call
+  ⚠ test_empty_bindings (idd-dsl-core/src/import.rs:106) — TQ-002  No SUT call
+  ⚠ test_multiple_bindings_preserved (idd-dsl-core/src/import.rs:118) — TQ-002  No SUT call
+  ⚠ test_deserialization_unknown_variant (idd-dsl-core/src/enforcement.rs:110) — TQ-002  No SUT call
+  ⚠ test_deserialization_all_variants (idd-dsl-core/src/severity.rs:34) — TQ-002  No SUT call
+  ⚠ test_deserialization_all_variants (idd-dsl-core/src/scope.rs:49) — TQ-002  No SUT call
+  ⚠ test_deserialization_unknown_variant (idd-dsl-core/src/scope.rs:64) — TQ-002  No SUT call
+  ⚠ to_declaration (idd-macros/src/lib.rs:106) — TQ-003  Untested
+  ⚠ parse_intent_file (idd-dsl-parser/src/parser.rs:187) — TQ-003  Untested
+  ⚠ statement (idd-dsl-core/src/declaration.rs:97) — TQ-003  Untested
+  ⚠ owner (idd-dsl-core/src/declaration.rs:107) — TQ-003  Untested
+  ⚠ build (idd-dsl-core/src/declaration.rs:139) — TQ-003  Untested

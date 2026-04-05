@@ -3,7 +3,7 @@ name = ""
 version = ""
 
 [counters]
-next_feature = 8
+next_feature = 10
 next_story = 1
 next_decision = 1
 
