@@ -1,12 +1,14 @@
 ---
-id = "FIR-2"
-title = "Skill update — MCP access to idd serve with CLI fallback"
-status = "designing"
-created = "2026-04-04"
 author = "alex"
-tags = ["skill", "mcp", "agent-tooling", "idd"]
+created = "2026-04-04"
 depends_on = ["FIR-1"]
----
+id = "FIR-2"
+status = "done"
+tags = ["skill", "mcp", "agent-tooling", "idd"]
+title = "Skill update — MCP access to idd serve with CLI fallback"
+updated = "2026-04-05"---
+
+-
 
 ## Summary
 

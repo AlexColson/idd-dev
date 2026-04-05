@@ -1,11 +1,13 @@
 ---
-id = "FIR-3"
-title = "Fix frontmatter parser to support TOML multiline strings"
-status = "wish"
-created = "2026-04-04"
 author = "alex"
+created = "2026-04-04"
+id = "FIR-3"
+status = "done"
 tags = ["bug", "parser", "idd-fir", "quality-of-life"]
----
+title = "Fix frontmatter parser to support TOML multiline strings"
+updated = "2026-04-05"---
+
+-
 
 ## Problem
 
