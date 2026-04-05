@@ -1,0 +1,16 @@
+[registry]
+name = ""
+version = ""
+
+[counters]
+next_feature = 8
+next_story = 1
+next_decision = 1
+
+[agent]
+context_includes = []
+context_budget = 4000
+
+[integration]
+constraints_dir = ""
+auto_link_constraints = true
