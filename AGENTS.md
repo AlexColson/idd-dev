@@ -142,6 +142,8 @@ If `.fir/` doesn't exist AND `idd fir` is not installed, falls back to `.sisyphu
 - **`cargo fmt`** — all code is formatted before commit (enforced by pre-commit hook).
 - **No `#[allow(...)]` without comment** — every suppression must have a `// reason:` explaining why.
 - **Feature completion gate** — every feature must pass `cargo build` and `cargo test` before being considered done. No exceptions.
+- **rustqual gate** — after completing any feature, run `just quality` on the affected crates. All violations introduced by the feature must be resolved before the feature is considered done. This is non-negotiable. Complexity thresholds, IOSP violations, DRY findings, and untested functions in new code are blocking.
+- **rustqual gate** — after completing any feature, run `just quality` on the affected crates. All violations introduced by the feature must be resolved before the feature is considered done. This is non-negotiable. Complexity thresholds, IOSP violations, DRY findings, and untested functions in new code are blocking.
 
 ## ANTI-PATTERNS (THIS PROJECT)
 
