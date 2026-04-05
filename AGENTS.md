@@ -85,13 +85,20 @@ $deep-interview "clarify the auth change"
   → User confirms → implementation proceeds, feature status updated via `idd fir`
 ```
 
-Interview output flows directly into the **Feature Intent Registry** (`.fir/`) via `idd fir` commands — not raw file writes. The same logic will later be available via MCP through `idd serve`, so the workflow is identical regardless of interface.
+Interview output flows directly into the **Feature Intent Registry** (`.fir/`) via `idd fir` commands — not raw file writes.
+
+### MCP-First FIR Access
+
+**Always use the `idd-mcp-access` skill first.** The `idd serve` MCP server exposes all FIR operations as tools (`fir.new`, `fir.list`, `fir.show`, `fir.update`, `fir.status`, `fir.archive`, etc.). The skill is auto-loaded when you mention "fir", "feature", "story", "decision", or "archive".
+
+- **Primary**: Call MCP tools via `idd-serve` server (configured in `opencode.json`)
+- **Fallback**: Use `idd fir <subcommand>` CLI only if MCP server is unavailable
 
 If `.fir/` doesn't exist AND `idd fir` is not installed, falls back to `.sisyphus/specs/<date>-<slug>.md`.
 
 **Trigger phrases:** "interview me", "don't assume", "gather requirements", "clarify the scope", "let's think through this first"
 
-**Rule:** No implementation until the user explicitly confirms the feature. If requirements change mid-implementation, update the FIR feature via `idd fir update` — don't silently diverge.
+**Rule:** No implementation until the user explicitly confirms the feature. If requirements change mid-implementation, update the FIR feature via `fir.update` (MCP) or `idd fir update` (CLI) — don't silently diverge.
 
 ## CONVENTIONS
 
