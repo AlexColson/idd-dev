@@ -1,0 +1,45 @@
+# rustqual configuration for idd-dev workspace
+
+external_prefixes = [
+    "std",
+    "core",
+    "alloc",
+    "log",
+    "tracing",
+    "anyhow",
+    "thiserror",
+    "serde",
+    "tokio",
+    "println",
+    "eprintln",
+    "format",
+    "vec",
+    "dbg",
+    "todo",
+    "unimplemented",
+    "panic",
+    "assert",
+    "assert_eq",
+    "assert_ne",
+    "debug_assert",
+]
+
+ignore_functions = [
+    "main",
+    "run",
+    "test_*",
+    "visit_*",
+]
+
+[complexity]
+enabled = true
+max_cognitive = 15
+max_cyclomatic = 10
+max_nesting_depth = 4
+max_function_lines = 60
+detect_unsafe = true
+detect_error_handling = true
+allow_expect = true
+
+[boilerplate]
+enabled = true
